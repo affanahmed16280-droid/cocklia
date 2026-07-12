@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cochlea Cap — Dashboard</title>
+  <meta name="description" content="Real-time Cochlea Cap device location tracker and emergency SOS monitor." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Leaflet.js — free OpenStreetMap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="dashboard-page">
+
+  <!-- ══ TOP NAV ══════════════════════════════════════════════ -->
+  <header class="topnav">
+    <div class="topnav__brand">
+      <div class="topnav__logo">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+          <path d="M12 1a7 7 0 017 7 7 7 0 01-7 7 7 7 0 01-7-7 7 7 0 017-7zm0 14a9 9 0 019 9H3a9 9 0 019-9z" fill="white"/>
+        </svg>
+      </div>
+      <span class="topnav__name">Cochlea Cap</span>
+      <span class="live-badge">
+        <span class="live-dot"></span> LIVE
+      </span>
+    </div>
+    <div class="topnav__right">
+      <div class="user-pill" id="user-pill">
+        <div class="user-avatar" id="user-avatar">?</div>
+        <span id="user-name">Loading…</span>
+      </div>
+      <button class="btn-logout" id="btn-logout" title="Sign out">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Sign Out
+      </button>
+    </div>
+  </header>
+
+  <!-- ══ MAIN LAYOUT ═══════════════════════════════════════════ -->
+  <main class="dashboard-layout">
+
+    <!-- ── SIDEBAR ─────────────────────────────────────────── -->
+    <aside class="sidebar">
+
+      <!-- Account card -->
+      <div class="card account-card">
+        <div class="account-card__avatar" id="sidebar-avatar">?</div>
+        <div class="account-card__info">
+          <p class="account-card__name" id="sidebar-name">Loading…</p>
+          <p class="account-card__email" id="sidebar-email">…</p>
+        </div>
+        <div class="status-badge status-badge--online">
+          <span class="status-dot"></span> Online
+        </div>
+      </div>
+
+      <!-- Device cards -->
+      <div class="card device-section">
+        <h3 class="section-label">DEVICES</h3>
+        <div class="device-row">
+          <div class="device-icon device-icon--green">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div class="device-info">
+            <span class="device-name">Cochlea Cap</span>
+            <span class="device-status">Connected</span>
+          </div>
+          <div class="device-battery">
+            <div class="battery-bar"><div class="battery-fill" style="width:85%"></div></div>
+            <span class="battery-pct">85%</span>
+          </div>
+        </div>
+        <div class="device-row">
+          <div class="device-icon device-icon--amber">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" stroke-width="2"/><path d="M12 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="device-info">
+            <span class="device-name">Armband</span>
+            <span class="device-status device-status--warn">Low Battery</span>
+          </div>
+          <div class="device-battery">
+            <div class="battery-bar"><div class="battery-fill battery-fill--warn" style="width:42%"></div></div>
+            <span class="battery-pct">42%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOS Feed -->
+      <div class="card sos-card">
+        <h3 class="section-label">
+          EMERGENCY SOS
+          <span class="sos-count" id="sos-count">0</span>
+        </h3>
+        <div class="sos-feed" id="sos-feed">
+          <div class="sos-empty" id="sos-empty">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#D4E4DC" stroke-width="2"/></svg>
+            <span>No SOS events yet</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── MAP PANEL ────────────────────────────────────────── -->
+    <section class="map-section">
+      <div class="map-header">
+        <div>
+          <h2 class="map-title">Live Location</h2>
+          <p class="map-sub" id="last-updated">Waiting for data…</p>
+        </div>
+        <div class="map-actions">
+          <div class="conn-indicator" id="conn-indicator">
+            <span class="conn-dot"></span>
+            <span id="conn-label">Connecting…</span>
+          </div>
+          <button class="btn-recenter" id="btn-recenter" title="Re-centre map">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+              <circle cx="12" cy="12" r="3" fill="currentColor"/>
+              <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Re-centre
+          </button>
+        </div>
+      </div>
+      <div id="map" class="leaflet-map"></div>
+
+      <!-- Stats bar -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="#086653" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="#086653" stroke-width="2"/></svg>
+          <div>
+            <span class="stat-label">Coordinates</span>
+            <span class="stat-value" id="stat-coords">—</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><circle cx="12" cy="12" r="10" stroke="#086653" stroke-width="2"/><polyline points="12 6 12 12 16 14" stroke="#086653" stroke-width="2" stroke-linecap="round"/></svg>
+          <div>
+            <span class="stat-label">Last Update</span>
+            <span class="stat-value" id="stat-time">—</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 0111.39 18a19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#086653" stroke-width="2"/></svg>
+          <div>
+            <span class="stat-label">Accuracy</span>
+            <span class="stat-value" id="stat-acc">—</span>
+          </div>
+        </div>
+        <div class="stat-item">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#E85C5C" stroke-width="2"/></svg>
+          <div>
+            <span class="stat-label">SOS Events</span>
+            <span class="stat-value stat-value--danger" id="stat-sos">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ══ FIREBASE & MAP JS ══════════════════════════════════════ -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signOut }
+      from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js';
+    import { getFirestore, doc, collection, onSnapshot, query, where, orderBy, limit }
+      from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAUMH7JMPC-qyNwSI-CKNCz_hPXOgJeQaI",
+      authDomain: "cochlea-cap.firebaseapp.com",
+      projectId: "cochlea-cap",
+      storageBucket: "cochlea-cap.firebasestorage.app",
+      messagingSenderId: "706178325826",
+      appId: "1:706178325826:android:eb5a5ea4aa7fc161aa7cdb"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // ── MAP SETUP ─────────────────────────────────────────────
+    const map = L.map('map', { zoomControl: false }).setView([23.8103, 90.4125], 13);
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Custom pulsing marker icon
+    const pulseIcon = L.divIcon({
+      className: '',
+      html: `<div class="pulse-marker">
+               <div class="pulse-marker__dot"></div>
+               <div class="pulse-marker__ring"></div>
+             </div>`,
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+    });
+
+    let deviceMarker = null;
+    let sosMarkers = [];
+    let currentUid = null;
+    let unsubLocation = null;
+    let unsubSOS = null;
+
+    // ── AUTH GUARD ────────────────────────────────────────────
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        window.location.href = 'login.html';
+        return;
+      }
+      currentUid = user.uid;
+
+      // Update UI with user info
+      const name = user.displayName || user.email;
+      const initial = name[0].toUpperCase();
+      document.getElementById('user-name').textContent = name;
+      document.getElementById('user-avatar').textContent = initial;
+      document.getElementById('sidebar-avatar').textContent = initial;
+      document.getElementById('sidebar-name').textContent = user.displayName || 'My Account';
+      document.getElementById('sidebar-email').textContent = user.email;
+
+      setConnStatus(true);
+      startLocationListener(user.uid);
+      startSOSListener(user.uid);
+    });
+
+    // ── LOGOUT ───────────────────────────────────────────────
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+      unsubLocation?.();
+      unsubSOS?.();
+      await signOut(auth);
+      window.location.href = 'login.html';
+    });
+
+    // ── RE-CENTRE ────────────────────────────────────────────
+    document.getElementById('btn-recenter').addEventListener('click', () => {
+      if (deviceMarker) map.setView(deviceMarker.getLatLng(), 16, { animate: true });
+    });
+
+    // ── LOCATION LISTENER ─────────────────────────────────────
+    function startLocationListener(uid) {
+      const locationRef = doc(db, 'locations', uid);
+      unsubLocation = onSnapshot(locationRef, snap => {
+        if (!snap.exists()) {
+          document.getElementById('last-updated').textContent = 'No location data yet. Open the app on your device.';
+          return;
+        }
+        const d = snap.data();
+        const lat = d.lat, lng = d.lng;
+        const acc = d.accuracy ? d.accuracy.toFixed(1) + 'm' : '—';
+        const ts  = d.timestamp?.toDate();
+
+        // Update or create marker
+        if (!deviceMarker) {
+          deviceMarker = L.marker([lat, lng], { icon: pulseIcon })
+            .addTo(map)
+            .bindPopup(`<b>Cochlea Cap</b><br>Last seen: ${formatTime(ts)}`);
+          map.setView([lat, lng], 15, { animate: true });
+        } else {
+          deviceMarker.setLatLng([lat, lng]);
+          deviceMarker.setPopupContent(`<b>Cochlea Cap</b><br>Last seen: ${formatTime(ts)}`);
+        }
+
+        document.getElementById('stat-coords').textContent = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+        document.getElementById('stat-time').textContent = formatTime(ts);
+        document.getElementById('stat-acc').textContent = acc;
+        document.getElementById('last-updated').textContent = `Updated ${timeAgo(ts)}`;
+      });
+    }
+
+    // ── SOS LISTENER ──────────────────────────────────────────
+    function startSOSListener(uid) {
+      // Trying without orderBy first to avoid composite index requirement,
+      // we will sort in JavaScript instead.
+      const q = query(
+        collection(db, 'sos_events'),
+        where('uid', '==', uid)
+      );
+      
+      unsubSOS = onSnapshot(q, snap => {
+        let events = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        
+        // Sort by timestamp descending in JavaScript to bypass index need
+        events.sort((a, b) => {
+          const tA = a.timestamp?.toMillis() || 0;
+          const tB = b.timestamp?.toMillis() || 0;
+          return tB - tA;
+        });
+        
+        // Only keep the latest 20
+        events = events.slice(0, 20);
+
+        // Clear old SOS markers
+        sosMarkers.forEach(m => map.removeLayer(m));
+        sosMarkers = [];
+
+        const feed = document.getElementById('sos-feed');
+        const empty = document.getElementById('sos-empty');
+        const count = document.getElementById('sos-count');
+        const statSos = document.getElementById('stat-sos');
+
+        count.textContent = events.length;
+        statSos.textContent = events.length;
+
+        if (events.length === 0) {
+          empty.style.display = '';
+          feed.innerHTML = '';
+          feed.appendChild(empty);
+          return;
+        }
+        empty.style.display = 'none';
+        feed.innerHTML = '';
+
+        events.forEach(ev => {
+          const ts = ev.timestamp?.toDate();
+
+          // Add SOS marker to map if location available
+          if (ev.lat && ev.lng) {
+            const sosIcon = L.divIcon({
+              className: '',
+              html: `<div class="sos-marker"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" fill="#E85C5C"/><path d="M12 9v4M12 17h.01" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></div>`,
+              iconSize: [28, 28], iconAnchor: [14, 14],
+            });
+            const m = L.marker([ev.lat, ev.lng], { icon: sosIcon })
+              .addTo(map)
+              .bindPopup(`<b>🚨 SOS Alert</b><br>${formatTime(ts)}`);
+            sosMarkers.push(m);
+          }
+
+          // Feed item
+          const item = document.createElement('div');
+          item.className = `sos-item${ev.resolved ? ' sos-item--resolved' : ''}`;
+          item.innerHTML = `
+            <div class="sos-item__icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" fill="${ev.resolved ? '#4AE8A8' : '#E85C5C'}"/>
+                <path d="M12 9v4M12 17h.01" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="sos-item__info">
+              <span class="sos-item__title">Emergency SOS</span>
+              <span class="sos-item__loc">${ev.lat ? `${ev.lat.toFixed(4)}, ${ev.lng.toFixed(4)}` : 'Location unavailable'}</span>
+            </div>
+            <div class="sos-item__meta">
+              <span class="sos-item__time">${timeAgo(ts)}</span>
+              <span class="sos-item__status">${ev.resolved ? '✓ Resolved' : '⚠ Active'}</span>
+            </div>`;
+          feed.appendChild(item);
+        });
+      }, (error) => {
+        console.error("Error listening to SOS events:", error);
+      });
+    }
+
+    // ── HELPERS ───────────────────────────────────────────────
+    function setConnStatus(online) {
+      const dot   = document.querySelector('.conn-dot');
+      const label = document.getElementById('conn-label');
+      dot.style.background   = online ? '#4AE8A8' : '#E85C5C';
+      label.textContent = online ? 'Connected' : 'Disconnected';
+    }
+
+    function formatTime(date) {
+      if (!date) return '—';
+      return date.toLocaleString('en-GB', {
+        day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    function timeAgo(date) {
+      if (!date) return '—';
+      const diff = Math.floor((Date.now() - date.getTime()) / 1000);
+      if (diff < 60)  return `${diff}s ago`;
+      if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+      if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+      return `${Math.floor(diff/86400)}d ago`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cochlea Cap — Sign In</title>
+  <meta name="description" content="Sign in to your Cochlea Cap account to track your device location and view emergency alerts." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="auth-page">
+
+  <div class="auth-wrapper">
+    <!-- Branding -->
+    <div class="auth-brand">
+      <a href="index.html" class="auth-logo">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" fill="currentColor"/>
+        </svg>
+      </a>
+      <h1 class="auth-title">Cochlea Cap</h1>
+      <p class="auth-subtitle" id="auth-tagline">Welcome back — sign in to continue</p>
+    </div>
+
+    <!-- Card -->
+    <div class="auth-card">
+      <div class="tab-switcher">
+        <button class="tab-btn active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+        <button class="tab-btn" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+        <div class="tab-indicator" id="tab-indicator"></div>
+      </div>
+
+      <div id="error-box" class="error-box hidden">
+        <span id="error-text"></span>
+      </div>
+
+      <form id="auth-form" onsubmit="handleSubmit(event)">
+        <!-- Sign-up only fields -->
+        <div id="signup-fields" class="hidden">
+          <div class="input-group">
+            <label for="input-name">Full Name</label>
+            <div class="input-wrap">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+              <input id="input-name" type="text" placeholder="John Doe" autocomplete="name" />
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="input-email">Email address</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="2"/><path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="2"/></svg>
+            <input id="input-email" type="email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="input-pass">Password</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input id="input-pass" type="password" placeholder="••••••••" autocomplete="current-password" required minlength="6" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="submit-btn">
+          <span id="btn-text">Sign In</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js';
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged }
+      from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js';
+    import { getFirestore, doc, setDoc, serverTimestamp }
+      from 'https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAUMH7JMPC-qyNwSI-CKNCz_hPXOgJeQaI",
+      authDomain: "cochlea-cap.firebaseapp.com",
+      projectId: "cochlea-cap",
+      storageBucket: "cochlea-cap.firebasestorage.app",
+      messagingSenderId: "706178325826",
+      appId: "1:706178325826:android:eb5a5ea4aa7fc161aa7cdb"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // Redirect if already logged in
+    onAuthStateChanged(auth, user => {
+      if (user) window.location.href = 'dashboard.html';
+    });
+
+    let isSignUp = false;
+
+    window.switchTab = function(mode) {
+      isSignUp = mode === 'signup';
+      document.getElementById('tab-login').classList.toggle('active', !isSignUp);
+      document.getElementById('tab-signup').classList.toggle('active', isSignUp);
+      document.getElementById('tab-indicator').style.transform = isSignUp ? 'translateX(100%)' : 'translateX(0)';
+      document.getElementById('signup-fields').classList.toggle('hidden', !isSignUp);
+      document.getElementById('btn-text').textContent = isSignUp ? 'Create Account' : 'Sign In';
+      document.getElementById('auth-tagline').textContent = isSignUp
+        ? 'Create your free account to get started'
+        : 'Welcome back — sign in to continue';
+      hideError();
+    };
+
+    window.handleSubmit = async function(e) {
+      e.preventDefault();
+      hideError();
+      const email = document.getElementById('input-email').value.trim();
+      const pass  = document.getElementById('input-pass').value;
+      setLoading(true);
+      try {
+        if (isSignUp) {
+          const name = document.getElementById('input-name').value.trim();
+          // Step 1: Create auth user
+          const cred = await createUserWithEmailAndPassword(auth, email, pass);
+          // Step 2: Update display name
+          await updateProfile(cred.user, { displayName: name });
+          // Step 3: Try to write to firestore
+          try {
+            await setDoc(doc(db, 'users', cred.user.uid), {
+              displayName: name,
+              email: email,
+              createdAt: serverTimestamp()
+            });
+          } catch (fsError) {
+             console.warn("Firestore write failed, but account created:", fsError);
+             // We won't block the login if just the profile write fails due to rules
+          }
+        } else {
+          await signInWithEmailAndPassword(auth, email, pass);
+        }
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        // Detailed error string for debugging
+        showError(friendlyError(err.code) + " (" + err.message + ")");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    function setLoading(on) {
+      document.getElementById('submit-btn').disabled = on;
+      document.getElementById('btn-text').textContent = on ? 'Processing...' : (isSignUp ? 'Create Account' : 'Sign In');
+    }
+    function showError(msg) {
+      const box = document.getElementById('error-box');
+      document.getElementById('error-text').textContent = msg;
+      box.classList.remove('hidden');
+    }
+    function hideError() { document.getElementById('error-box').classList.add('hidden'); }
+    function friendlyError(code) {
+      const map = {
+        'auth/user-not-found': 'No account found with that email.',
+        'auth/wrong-password': 'Incorrect password. Please try again.',
+        'auth/email-already-in-use': 'An account already exists with this email.',
+        'auth/weak-password': 'Password must be at least 6 characters.',
+        'auth/invalid-email': 'Please enter a valid email address.',
+        'auth/invalid-credential': 'Invalid email or password.',
+      };
+      return map[code] || 'Something went wrong.';
+    }
+  </script>
+</body>
+</html>
