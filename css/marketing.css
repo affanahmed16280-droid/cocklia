@@ -768,16 +768,21 @@ button {
   background: var(--bg-subtle);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  overflow: hidden;
 }
 
 .hiw-pin {
   height: 100dvh;
-  min-height: 640px;
+  min-height: 600px;
+  max-height: 900px;
   display: flex;
   flex-direction: column;
-  padding: var(--nav-h) var(--gutter) 40px;
-  overflow: hidden;
-  will-change: transform;
+  justify-content: space-between;
+  padding: clamp(20px, 3vh, 40px) var(--gutter);
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .hiw-top {
@@ -811,11 +816,12 @@ button {
 
 .hiw-body {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(24px, 4vw, 56px);
   align-items: center;
   flex: 1;
   min-height: 0;
+  width: 100%;
 }
 
 .hiw-steps-wrap {
@@ -876,13 +882,16 @@ button {
 }
 
 .compass-wrap {
-  width: clamp(220px, 26vw, 320px);
-  height: clamp(220px, 26vw, 320px);
+  width: clamp(200px, 22vw, 290px);
+  height: clamp(200px, 22vw, 290px);
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
   background: #FFFFFF;
   border-radius: 50%;
-  padding: 16px;
+  padding: 14px;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border);
+  margin: 0 auto;
 }
 
 .compass-svg {
@@ -1443,16 +1452,15 @@ button {
 
 /* ── 16. Scroll Reveal States ─────────────────────────────── */
 .will-reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.6s var(--ease-smooth), transform 0.6s var(--ease-smooth);
+  opacity: 1;
+  transform: none;
 }
 
 @media (scripting: none) {
   .will-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+  opacity: 1;
+  transform: none;
+}
 }
 
 /* ── 17. Responsive Breakpoints ───────────────────────────── */
@@ -1475,7 +1483,14 @@ button {
   }
 }
 
-@media (max-width: 840px) {
+@media (max-width: 900px) {
+  .nav {
+    height: 68px;
+  }
+  .nav__logo-img {
+    height: 42px;
+    width: 42px;
+  }
   .nav__links {
     display: none;
   }
@@ -1487,40 +1502,51 @@ button {
   .devices-gallery,
   .roadmap-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .hiw-section {
+    padding: 60px 0;
   }
   .hiw-pin {
     height: auto;
-    padding: 80px var(--gutter);
+    max-height: none;
+    padding: 0 var(--gutter);
   }
   .hiw-top {
     flex-direction: column;
     align-items: flex-start;
+    padding-bottom: 24px;
   }
   .hiw-count {
     display: none;
   }
   .hiw-body {
     grid-template-columns: 1fr;
-  }
-  .hiw-visual {
-    display: none;
+    gap: 32px;
   }
   .hiw-steps-wrap {
     position: static;
     height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   .hiw-step {
     position: static;
     opacity: 1;
     transform: none;
     pointer-events: auto;
-    margin-bottom: 36px;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 24px 20px;
+    box-shadow: var(--shadow-subtle);
   }
-  .hiw-step:last-child {
-    margin-bottom: 0;
+  .hiw-visual {
+    margin: 20px auto 0;
   }
   .hiw-footer {
-    padding-top: 32px;
+    display: none;
   }
   .footer {
     flex-direction: column;

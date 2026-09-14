@@ -594,111 +594,71 @@
       }
     }
 
-    /* ── Hero Video: Ambient Autoplay + 3D Scroll Scrub Pipeline ── */
-    const scrubVideo = document.getElementById('hero-scrub-video');
-    if (scrubVideo) {
-      let targetTime = 0;
-      let currentTime = 0;
-      let isScrubbing = false;
+    /* ── Hero Video: Continuous Fluid Playback & GPU Parallax (Never stops on scroll) ── */
+    const heroVideo = document.getElementById('hero-scrub-video');
+    const heroVideoWrap = document.querySelector('.hero__video-wrap');
 
-      // Force video configuration
-      scrubVideo.muted = true;
-      scrubVideo.playsInline = true;
-      scrubVideo.loop = true;
+    if (heroVideo) {
+      heroVideo.muted = true;
+      heroVideo.playsInline = true;
+      heroVideo.loop = true;
+      heroVideo.autoplay = true;
 
-      // Start ambient autoplay immediately on load so video is NEVER static/frozen
-      function attemptAutoplay() {
-        if (!isScrubbing && scrubVideo.paused) {
-          scrubVideo.play().catch(() => {});
+      // Ensure video plays continuously without interruption
+      const playVideo = () => {
+        if (heroVideo.paused) {
+          heroVideo.play().catch(() => {});
         }
-      }
-      attemptAutoplay();
+      };
 
-      scrubVideo.addEventListener('loadedmetadata', () => {
-        attemptAutoplay();
-        ScrollTrigger.refresh();
-      });
-      scrubVideo.addEventListener('canplay', () => {
-        attemptAutoplay();
+      playVideo();
+      heroVideo.addEventListener('canplay', playVideo);
+      heroVideo.addEventListener('loadeddata', playVideo);
+      window.addEventListener('scroll', playVideo, { passive: true });
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) playVideo();
       });
 
-      if (!isMobile) {
-        // 60-120fps hardware-accelerated lerp loop for scroll scrubbing
-        function renderVideoScrub() {
-          if (isScrubbing && scrubVideo.duration && !isNaN(scrubVideo.duration)) {
-            const diff = targetTime - currentTime;
-            if (Math.abs(diff) > 0.001) {
-              currentTime += diff * 0.16;
-              try {
-                scrubVideo.currentTime = currentTime;
-              } catch (err) {}
-            }
+      // Smooth hardware-accelerated parallax on hero scroll (never pauses the video)
+      ScrollTrigger.create({
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 0.6,
+        onUpdate(self) {
+          // Subtle cinematic parallax on video background
+          if (heroVideoWrap) {
+            heroVideoWrap.style.transform = `translate3d(0, ${self.progress * 30}%, 0)`;
           }
-          requestAnimationFrame(renderVideoScrub);
+          // Fluid fade and lift on hero headline and actions
+          if (heroContent) {
+            const prog = Math.min(self.progress * 1.5, 1);
+            heroContent.style.opacity = String(Math.max(0, 1 - prog));
+            heroContent.style.transform = `translate3d(0, ${self.progress * 110}px, 0)`;
+          }
+          if (heroScroll) {
+            heroScroll.style.opacity = String(Math.max(0, 1 - self.progress * 3));
+          }
         }
-        requestAnimationFrame(renderVideoScrub);
-
-        // Pin the hero section and drive video timeline via scroll
-        ScrollTrigger.create({
-          trigger: '#hero',
-          start: 'top top',
-          end: '+=220%',
-          pin: true,
-          pinSpacing: true,
-          scrub: 1,
-          anticipatePin: 1,
-          onUpdate(self) {
-            // When user is actively scrolling through hero, scrub the video
-            if (self.progress > 0.015) {
-              isScrubbing = true;
-              if (!scrubVideo.paused) {
-                scrubVideo.pause();
-              }
-              if (scrubVideo.duration && !isNaN(scrubVideo.duration)) {
-                const maxTime = Math.max(0, scrubVideo.duration - 0.06);
-                targetTime = Math.min(Math.max(0, self.progress * scrubVideo.duration), maxTime);
-              }
-            } else {
-              // When user is at the very top (progress ~ 0), resume ambient playback smoothly
-              if (isScrubbing) {
-                isScrubbing = false;
-                targetTime = 0;
-                currentTime = 0;
-                scrubVideo.play().catch(() => {});
-              }
-            }
-
-            // Parallax fade hero content as user scrolls down
-            if (heroContent) {
-              const prog = Math.min(self.progress * 1.8, 1);
-              heroContent.style.opacity = String(Math.max(0, 1 - prog));
-              heroContent.style.transform = `translate3d(0, ${self.progress * 120}px, 0)`;
-            }
-            if (heroScroll) {
-              heroScroll.style.opacity = String(Math.max(0, 1 - self.progress * 4));
-            }
-          }
-        });
-      } else {
-        // On mobile: continuous soft autoplay
-        scrubVideo.autoplay = true;
-        scrubVideo.loop = true;
-        scrubVideo.play().catch(() => {});
-      }
+      });
     }
 
-    /* ── Generic section reveals ── */
+    /* ── Generic section reveals (100% visible, guaranteed no blank sections) ── */
     document.querySelectorAll('.will-reveal').forEach(el => {
       const rawDelay = el.style.cssText.match(/--delay:\s*([0-9.]+)s/);
       const delay = rawDelay ? parseFloat(rawDelay[1]) : 0;
-      gsap.from(el, {
-        y: 32,
-        opacity: 0,
-        duration: 0.85,
-        ease: 'power3.out',
-        delay,
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-      });
+      gsap.fromTo(el,
+        { y: 28, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay,
+          clearProps: 'all',
+          scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+        }
+      );
     });
 
     /* ── Animated stat counters ── */
@@ -783,12 +743,12 @@
     }
     activateStep(0);
 
-    gsap.matchMedia().add('(min-width: 769px)', () => {
+    gsap.matchMedia().add('(min-width: 901px)', () => {
       ScrollTrigger.create({
         trigger: hiwSection,
-        pin: hiwPin,
+        pin: true,
         start: 'top top',
-        end: '+=2200',
+        end: '+=1000',
         pinSpacing: true,
         anticipatePin: 1,
         onUpdate(self) {
