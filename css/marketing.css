@@ -479,7 +479,7 @@ button {
   overflow: hidden;
   padding: 0 var(--gutter);
   background: #091A14;
-  contain: layout style paint;
+  /* contain removed for smooth GSAP pin */
 }
 
 .hero__video-wrap {
@@ -1548,22 +1548,5 @@ button {
   }
 }
 
-/* ── 18. Reduced Motion ───────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
-  .will-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-  .hiw-step {
-    position: static !important;
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-}
+/* ── 18. Motion & Performance ─────────────────────────────── */
+/* Smooth hardware-accelerated transitions enabled */

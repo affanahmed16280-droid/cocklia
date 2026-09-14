@@ -59,7 +59,7 @@
 
       <!-- Background video (Hardware-accelerated scrub) -->
       <div class="hero__video-wrap" aria-hidden="true">
-        <video id="hero-scrub-video" class="hero__video" muted playsinline preload="auto" aria-hidden="true">
+        <video id="hero-scrub-video" class="hero__video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
           <source src="assets/video/videochochleacapwebsite.mp4" type="video/mp4" />
         </video>
         <div class="hero__overlay"></div>
@@ -507,8 +507,8 @@
   (function () {
     'use strict';
 
-    /* ── Reduced motion & mobile detection ── */
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* ── Motion & device settings (force 3D video scrub experience) ── */
+    const prefersReducedMotion = false; // Always enabled for full interactive video scroll
     const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 769;
 
     /* ── Register GSAP plugins ── */
@@ -516,7 +516,7 @@
 
     /* ── Lenis Smooth Scroll (Hardware accelerated) ── */
     let lenis = null;
-    if (!prefersReducedMotion && !isMobile) {
+    if (!isMobile) {
       lenis = new Lenis({
         duration: 1.1,
         easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -572,7 +572,7 @@
         if (window._lenis) {
           window._lenis.scrollTo(top, { duration: 1.2 });
         } else {
-          window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+          window.scrollTo({ top, behavior: 'smooth' });
         }
       });
     });
@@ -580,7 +580,7 @@
     /* ── Hero entrance animation ── */
     const heroContent = document.querySelector('.hero__content');
     const heroScroll = document.querySelector('.hero__scroll');
-    if (heroContent && !prefersReducedMotion) {
+    if (heroContent) {
       gsap.from(heroContent.children, {
         y: 28,
         opacity: 0,
@@ -594,72 +594,93 @@
       }
     }
 
-    /* ── Hero Video Scrub (Hardware Accelerated & Stutter-Free) ── */
+    /* ── Hero Video: Ambient Autoplay + 3D Scroll Scrub Pipeline ── */
     const scrubVideo = document.getElementById('hero-scrub-video');
-    if (scrubVideo && !prefersReducedMotion) {
+    if (scrubVideo) {
+      let targetTime = 0;
+      let currentTime = 0;
+      let isScrubbing = false;
+
+      // Force video configuration
+      scrubVideo.muted = true;
+      scrubVideo.playsInline = true;
+      scrubVideo.loop = true;
+
+      // Start ambient autoplay immediately on load so video is NEVER static/frozen
+      function attemptAutoplay() {
+        if (!isScrubbing && scrubVideo.paused) {
+          scrubVideo.play().catch(() => {});
+        }
+      }
+      attemptAutoplay();
+
+      scrubVideo.addEventListener('loadedmetadata', () => {
+        attemptAutoplay();
+        ScrollTrigger.refresh();
+      });
+      scrubVideo.addEventListener('canplay', () => {
+        attemptAutoplay();
+      });
+
       if (!isMobile) {
-        // Pause native playback so decoding pipeline is dedicated to scroll position
-        scrubVideo.pause();
-
-        let targetProgress = 0;
-        let currentProgress = 0;
-        let isSeeking = false;
-        let rafId = null;
-
-        function updateVideoScrub() {
-          if (scrubVideo.duration && scrubVideo.readyState >= 2) {
-            const diff = targetProgress - currentProgress;
-            // 0.12 lerp factor gives fluid butter-smooth tracking without decode lag
-            currentProgress += diff * 0.12;
-
-            const targetTime = currentProgress * scrubVideo.duration;
-            if (!isSeeking && Math.abs(scrubVideo.currentTime - targetTime) > 0.02) {
-              isSeeking = true;
-              scrubVideo.currentTime = targetTime;
+        // 60-120fps hardware-accelerated lerp loop for scroll scrubbing
+        function renderVideoScrub() {
+          if (isScrubbing && scrubVideo.duration && !isNaN(scrubVideo.duration)) {
+            const diff = targetTime - currentTime;
+            if (Math.abs(diff) > 0.001) {
+              currentTime += diff * 0.16;
+              try {
+                scrubVideo.currentTime = currentTime;
+              } catch (err) {}
             }
           }
-          rafId = requestAnimationFrame(updateVideoScrub);
+          requestAnimationFrame(renderVideoScrub);
         }
+        requestAnimationFrame(renderVideoScrub);
 
-        scrubVideo.addEventListener('seeked', () => {
-          isSeeking = false;
-        });
-
-        if (scrubVideo.readyState >= 1) {
-          rafId = requestAnimationFrame(updateVideoScrub);
-        } else {
-          scrubVideo.addEventListener('loadedmetadata', () => {
-            rafId = requestAnimationFrame(updateVideoScrub);
-          }, { once: true });
-        }
-
+        // Pin the hero section and drive video timeline via scroll
         ScrollTrigger.create({
           trigger: '#hero',
           start: 'top top',
-          end: '+=180%',
+          end: '+=220%',
           pin: true,
-          scrub: 1.2,
+          pinSpacing: true,
+          scrub: 1,
           anticipatePin: 1,
           onUpdate(self) {
-            targetProgress = self.progress;
+            // When user is actively scrolling through hero, scrub the video
+            if (self.progress > 0.015) {
+              isScrubbing = true;
+              if (!scrubVideo.paused) {
+                scrubVideo.pause();
+              }
+              if (scrubVideo.duration && !isNaN(scrubVideo.duration)) {
+                const maxTime = Math.max(0, scrubVideo.duration - 0.06);
+                targetTime = Math.min(Math.max(0, self.progress * scrubVideo.duration), maxTime);
+              }
+            } else {
+              // When user is at the very top (progress ~ 0), resume ambient playback smoothly
+              if (isScrubbing) {
+                isScrubbing = false;
+                targetTime = 0;
+                currentTime = 0;
+                scrubVideo.play().catch(() => {});
+              }
+            }
+
+            // Parallax fade hero content as user scrolls down
             if (heroContent) {
               const prog = Math.min(self.progress * 1.8, 1);
               heroContent.style.opacity = String(Math.max(0, 1 - prog));
-              heroContent.style.transform = `translate3d(0, ${self.progress * 80}px, 0)`;
+              heroContent.style.transform = `translate3d(0, ${self.progress * 120}px, 0)`;
             }
             if (heroScroll) {
-              heroScroll.style.opacity = String(Math.max(0, 1 - self.progress * 3.5));
+              heroScroll.style.opacity = String(Math.max(0, 1 - self.progress * 4));
             }
-          },
-          onLeave() {
-            if (rafId) cancelAnimationFrame(rafId);
-          },
-          onEnterBack() {
-            rafId = requestAnimationFrame(updateVideoScrub);
           }
         });
       } else {
-        // Mobile fallback: gentle continuous ambient playback
+        // On mobile: continuous soft autoplay
         scrubVideo.autoplay = true;
         scrubVideo.loop = true;
         scrubVideo.play().catch(() => {});
@@ -670,11 +691,6 @@
     document.querySelectorAll('.will-reveal').forEach(el => {
       const rawDelay = el.style.cssText.match(/--delay:\s*([0-9.]+)s/);
       const delay = rawDelay ? parseFloat(rawDelay[1]) : 0;
-      if (prefersReducedMotion) {
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-        return;
-      }
       gsap.from(el, {
         y: 32,
         opacity: 0,
@@ -767,23 +783,21 @@
     }
     activateStep(0);
 
-    if (!prefersReducedMotion) {
-      gsap.matchMedia().add('(min-width: 769px)', () => {
-        ScrollTrigger.create({
-          trigger: hiwSection,
-          pin: hiwPin,
-          start: 'top top',
-          end: '+=2200',
-          pinSpacing: true,
-          anticipatePin: 1,
-          onUpdate(self) {
-            const step = Math.min(Math.floor(self.progress * 4), 3);
-            activateStep(step);
-          },
-        });
-        return () => {};
+    gsap.matchMedia().add('(min-width: 769px)', () => {
+      ScrollTrigger.create({
+        trigger: hiwSection,
+        pin: hiwPin,
+        start: 'top top',
+        end: '+=2200',
+        pinSpacing: true,
+        anticipatePin: 1,
+        onUpdate(self) {
+          const step = Math.min(Math.floor(self.progress * 4), 3);
+          activateStep(step);
+        },
       });
-    }
+      return () => {};
+    });
 
     /* ── SVG Decibel Chart Animation ── */
     function animateSoundChart() {
@@ -800,12 +814,6 @@
         start: 'top 72%',
         once: true,
         onEnter() {
-          if (prefersReducedMotion) {
-            gsap.set(lineA, { strokeDashoffset: 0 });
-            gsap.set(lineB, { strokeDashoffset: 0 });
-            gsap.set('#chart-threshold', { opacity: 1 });
-            return;
-          }
           gsap.to(lineA, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.out' });
           gsap.to(lineB, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.out', delay: 0.2 });
           gsap.to('#chart-threshold', { opacity: 1, duration: 0.5, delay: 0.9 });
@@ -816,35 +824,27 @@
 
     /* ── Future Plans / Roadmap Reveal (100% Reliable Visibility) ── */
     const roadmapCards = document.querySelectorAll('.roadmap-card');
-    if (!prefersReducedMotion) {
-      gsap.fromTo('.roadmap-card',
-        { y: 32, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.85,
-          ease: 'power3.out',
-          stagger: 0.12,
-          clearProps: 'all', // Strips inline styles when done to guarantee permanent visibility
-          scrollTrigger: {
-            trigger: '#roadmap',
-            start: 'top 85%',
-            once: true,
-            onEnter() {
-              roadmapCards.forEach(c => {
-                c.style.visibility = 'visible';
-              });
-            }
+    gsap.fromTo('.roadmap-card',
+      { y: 32, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.85,
+        ease: 'power3.out',
+        stagger: 0.12,
+        clearProps: 'all',
+        scrollTrigger: {
+          trigger: '#roadmap',
+          start: 'top 85%',
+          once: true,
+          onEnter() {
+            roadmapCards.forEach(c => {
+              c.style.visibility = 'visible';
+            });
           }
         }
-      );
-    } else {
-      roadmapCards.forEach(c => {
-        c.style.opacity = '1';
-        c.style.transform = 'none';
-        c.style.visibility = 'visible';
-      });
-    }
+      }
+    );
 
   })();
   </script>
