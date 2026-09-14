@@ -190,8 +190,9 @@
       maxZoom: 20,
     }).addTo(map);
 
-    // Guarantee map size is accurately measured and rendered
-    setTimeout(() => { map.invalidateSize(); }, 300);
+    // Guarantee map size is accurately measured and rendered (double-call for robustness)
+    setTimeout(() => { map.invalidateSize(); }, 500);
+    setTimeout(() => { map.invalidateSize(); }, 1200);
     window.addEventListener('resize', () => { map.invalidateSize(); });
 
     // Custom pulsing marker icon
