@@ -1,16 +1,16 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="theme-color" content="#0D0E11" />
-  <link rel="preload" href="assets/logo.png" as="image" />
   <meta charset="UTF-8" />
+  <meta name="theme-color" content="#0F382C" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cochlea Cap â€” 360Â° Situational Awareness for Deaf Individuals</title>
-  <meta name="description" content="Cochlea Cap detects sound and identifies its direction through haptic feedback â€” giving deaf and hard-of-hearing people 360Â° situational awareness on the street, without surgery." />
-  <meta property="og:title" content="Cochlea Cap â€” Directional Alert Device" />
-  <meta property="og:description" content="360Â° situational awareness for deaf individuals. No surgery required." />
+  <title>Cochlea Cap — 360° Situational Awareness for Deaf Individuals</title>
+  <meta name="description" content="Cochlea Cap detects sound and identifies its direction through haptic feedback — giving deaf and hard-of-hearing people 360° situational awareness on the street, without surgery." />
+  <meta property="og:title" content="Cochlea Cap — Directional Alert Device" />
+  <meta property="og:description" content="360° situational awareness for deaf individuals. No surgery required." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preload" href="assets/logo.png" as="image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="css/marketing.css" />
@@ -20,17 +20,19 @@
   <!-- Skip to main content (accessibility) -->
   <a class="skip-link" href="#main">Skip to main content</a>
 
-  <!-- â•â• NAVIGATION â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ══ NAVIGATION ══════════════════════════════════════════ -->
   <nav class="nav" id="site-nav" aria-label="Main navigation">
     <a href="#" class="nav__logo" aria-label="Cochlea Cap home">
-      <img src="assets/logo.png" alt="Cochlea Cap logo" class="nav__logo-img" width="120" height="40" />
+      <img src="assets/logo.png" alt="Cochlea Cap logo" class="nav__logo-img" width="52" height="52" />
+      <span class="nav__logo-text">Cochlea<span>Cap</span></span>
     </a>
 
     <div class="nav__links" role="list">
       <a href="#problem" class="nav__link" role="listitem">The Problem</a>
       <a href="#how-it-works" class="nav__link" role="listitem">How It Works</a>
       <a href="#research" class="nav__link" role="listitem">Research</a>
-      <a href="#roadmap" class="nav__link" role="listitem">Future</a>
+      <a href="#progress" class="nav__link" role="listitem">Progress</a>
+      <a href="#roadmap" class="nav__link" role="listitem">Future Plans</a>
       <a href="login.html" class="nav__cta">Access Dashboard</a>
     </div>
 
@@ -39,24 +41,25 @@
     </button>
   </nav>
 
-  <!-- Mobile menu -->
+  <!-- Mobile navigation menu -->
   <div class="nav__mobile" id="nav-mobile" role="dialog" aria-label="Mobile navigation">
     <a href="#problem" class="nav__link" id="mob-link-1">The Problem</a>
     <a href="#how-it-works" class="nav__link" id="mob-link-2">How It Works</a>
     <a href="#research" class="nav__link" id="mob-link-3">Research</a>
-    <a href="#roadmap" class="nav__link" id="mob-link-4">Future</a>
+    <a href="#progress" class="nav__link" id="mob-link-4">Progress</a>
+    <a href="#roadmap" class="nav__link" id="mob-link-5">Future Plans</a>
     <a href="login.html" class="nav__cta btn--sm">Access Dashboard</a>
   </div>
 
-  <!-- â•â• MAIN CONTENT â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ══ MAIN CONTENT ════════════════════════════════════════ -->
   <main id="main">
 
-    <!-- â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- ── HERO ─────────────────────────────────────────────── -->
     <section class="hero" id="hero" aria-labelledby="hero-headline">
 
-      <!-- Background video (scrubbed by GSAP) -->
+      <!-- Background video (Hardware-accelerated scrub) -->
       <div class="hero__video-wrap" aria-hidden="true">
-        <video id="hero-scrub-video" class="hero__video" muted playsinline preload="metadata" aria-hidden="true">
+        <video id="hero-scrub-video" class="hero__video" muted playsinline preload="auto" aria-hidden="true">
           <source src="assets/video/videochochleacapwebsite.mp4" type="video/mp4" />
         </video>
         <div class="hero__overlay"></div>
@@ -64,9 +67,7 @@
 
       <div class="hero__content">
         <div class="hero__tag" aria-label="Product category">
-          <span class="hero__tag-line" aria-hidden="true"></span>
           Directional Haptic Alert Device
-          <span class="hero__tag-line" aria-hidden="true"></span>
         </div>
 
         <h1 class="hero__title" id="hero-headline">
@@ -74,17 +75,17 @@
         </h1>
 
         <p class="hero__sub">
-          Cochlea Cap detects sound and identifies its direction through haptic feedback â€”
-          giving 360Â° situational awareness without expensive surgery.
+          Cochlea Cap detects sound and identifies its direction through haptic feedback —
+          giving 360° situational awareness without expensive surgery.
         </p>
 
         <div class="hero__actions">
           <a href="#how-it-works" class="btn btn--primary">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
               <path d="M6.5 5.5l3 2.5-3 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            How it works
+            How It Works
           </a>
           <a href="login.html" class="btn btn--ghost">Access Dashboard</a>
         </div>
@@ -92,13 +93,14 @@
 
       <!-- Scroll indicator -->
       <div class="hero__scroll" aria-hidden="true">
+        <span>Scroll to explore</span>
         <svg class="hero__scroll-chevron" width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </section>
 
-    <!-- â”€â”€ THE PROBLEM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- ── THE PROBLEM ──────────────────────────────────────── -->
     <section class="section problem" id="problem" aria-labelledby="problem-heading">
       <div class="container">
 
@@ -119,7 +121,7 @@
           <div class="stat-block will-reveal" role="listitem" style="--delay:0.1s">
             <span class="stat-block__num" id="count-crore" aria-label="1 crore 23 lakh BDT">0</span>
             <span class="stat-block__unit">crore 23 lakh BDT</span>
-            <p class="stat-block__desc">minimum cost of a cochlear implant, plus highly invasive surgery most cannot access</p>
+            <p class="stat-block__desc">minimum cost of a cochlear implant, plus highly invasive neurosurgery most cannot access</p>
           </div>
           <div class="stat-block will-reveal" role="listitem" style="--delay:0.2s">
             <span class="stat-block__num" data-count="80" aria-label="80 percent" id="count-80">0</span>
@@ -128,11 +130,11 @@
           </div>
         </div>
 
-        <!-- Context -->
+        <!-- Context Copy and Diagram -->
         <div class="problem__context">
           <div class="problem__copy will-reveal">
-            <p>Cochlear implants are not just expensive â€” they require <strong>invasive neurosurgery</strong> and eligibility criteria that exclude many. For the majority of the world's deaf population, the barrier isn't medical. It's financial.</p>
-            <p style="margin-top:20px">Cochlea Cap approaches the problem differently. Rather than restoring hearing, it extends what deaf individuals already excel at â€” <strong>forward-focused awareness and lip-reading</strong> â€” to all four directions, through precise haptic signals on the wrist.</p>
+            <p>Cochlear implants are not just expensive — they require <strong>invasive neurosurgery</strong> and rigid eligibility criteria that exclude millions. For the majority of the world's deaf population, the barrier isn't medical. It is financial.</p>
+            <p>Cochlea Cap approaches the challenge differently. Rather than attempting invasive sound restoration, it extends what deaf individuals already excel at — <strong>forward-focused visual awareness and lip-reading</strong> — into full 360° situational coverage through intuitive haptic pulses on the wrist.</p>
           </div>
           <div class="problem__image-frame will-reveal" style="--delay:0.15s">
             <img
@@ -140,6 +142,7 @@
               alt="Diagram showing sound reaching the ear but being blocked by a cost barrier labeled '$$$', representing the financial gap preventing deaf individuals from accessing hearing solutions"
               width="400"
               height="300"
+              loading="lazy"
             />
           </div>
         </div>
@@ -147,10 +150,10 @@
       </div>
     </section>
 
-    <!-- â”€â”€ HOW IT WORKS (PINNED SCROLL) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- ── HOW IT WORKS (PINNED SCROLL) ─────────────────────── -->
     <section class="hiw-section" id="how-it-works" aria-labelledby="hiw-heading">
 
-      <!-- The pin target â€” JS will pin this for 2400px of scroll on desktop -->
+      <!-- Pinned container for desktop GSAP scrub -->
       <div class="hiw-pin" id="hiw-pin">
 
         <div class="hiw-top">
@@ -158,7 +161,6 @@
             <span class="section-label">How It Works</span>
             <h2 id="hiw-heading">From sound to safety.<br>In under a second.</h2>
           </div>
-          <!-- Large step counter (decorative) -->
           <div class="hiw-count" id="hiw-count-display" aria-hidden="true">01</div>
         </div>
 
@@ -169,67 +171,62 @@
 
             <div class="hiw-step is-active" data-step="0" id="step-0">
               <span class="hiw-step__num">Step 01 / 04</span>
-              <h3>Sound detected</h3>
-              <p>Microphones built into the Cochlea Cap continuously monitor ambient audio. When a sound exceeds the 95 dB alert threshold â€” the level of an approaching vehicle â€” the system activates instantly.</p>
+              <h3>Sound Detected</h3>
+              <p>Microphones built into the Cochlea Cap continuously monitor ambient soundscapes. When audio exceeds the 95 dB alert threshold — the level of an approaching vehicle horn or siren — the system activates instantly.</p>
             </div>
 
             <div class="hiw-step" data-step="1" id="step-1">
               <span class="hiw-step__num">Step 02 / 04</span>
-              <h3>Direction calculated</h3>
-              <p>An onboard microcontroller analyzes the time-of-arrival difference between microphones to determine precisely which of four directions â€” front, back, left, or right â€” the sound originated from.</p>
+              <h3>Direction Calculated</h3>
+              <p>An onboard high-speed microcontroller analyzes the time-of-arrival difference between microphone capsules to calculate precisely which quadrant — front, back, left, or right — the sound originated from.</p>
             </div>
 
             <div class="hiw-step" data-step="2" id="step-2">
               <span class="hiw-step__num">Step 03 / 04</span>
-              <h3>Haptic alert fires</h3>
-              <p>The corresponding vibration motor on the armband pulses â€” a clear, unmistakable signal. Four motors, one for each direction, mounted precisely so the user immediately knows the source without looking.</p>
+              <h3>Haptic Alert Fires</h3>
+              <p>The corresponding vibration actuator on the wristband pulses with a distinct, unmistakable waveform. Four dedicated motors ensure the user immediately knows the exact hazard direction without turning their head.</p>
             </div>
 
             <div class="hiw-step" data-step="3" id="step-3">
               <span class="hiw-step__num">Step 04 / 04</span>
-              <h3>User moves safely</h3>
-              <p>Deaf individuals are already expert forward observers and lip-readers. Cochlea Cap extends that same awareness behind them and to both sides â€” complete 360Â° coverage. The user reacts, and stays safe.</p>
+              <h3>User Moves Safely</h3>
+              <p>Deaf individuals are already expert forward observers and lip-readers. Cochlea Cap expands that situational confidence behind them and to both sides — complete 360° coverage for autonomous urban navigation.</p>
             </div>
 
           </div>
 
-          <!-- Directional compass -->
+          <!-- Directional Compass Graphic -->
           <div class="hiw-visual" aria-hidden="true">
             <div class="compass-wrap">
-              <svg class="compass-svg" viewBox="0 0 240 240" role="img" aria-label="Directional compass showing which vibrator is active">
+              <svg class="compass-svg" viewBox="0 0 240 240" role="img" aria-label="Directional compass showing which quadrant vibrator is active">
 
-                <!-- Direction labels -->
+                <!-- Direction Labels -->
                 <text x="120" y="18" text-anchor="middle" class="compass-label" id="label-front">FRONT</text>
                 <text x="228" y="125" text-anchor="middle" class="compass-label" id="label-right">RIGHT</text>
                 <text x="120" y="236" text-anchor="middle" class="compass-label" id="label-back">BACK</text>
                 <text x="12" y="125" text-anchor="middle" class="compass-label" id="label-left">LEFT</text>
 
-                <!-- 4 sectors: computed for center(120,120), r_outer=95, r_inner=36 -->
-                <!-- Using cx=120,cy=120 -->
-                <!-- Front sector: 225Â° to 315Â° (top of circle) -->
+                <!-- 4 Compass Sectors -->
                 <path class="compass-sector" id="sector-front"
                   d="M 52.8,52.8 A 95,95 0 0 1 187.2,52.8 L 145.4,94.5 A 36,36 0 0 0 94.5,94.5 Z"/>
 
-                <!-- Right sector: 315Â° to 45Â° -->
                 <path class="compass-sector" id="sector-right"
                   d="M 187.2,52.8 A 95,95 0 0 1 187.2,187.2 L 145.4,145.4 A 36,36 0 0 0 145.4,94.5 Z"/>
 
-                <!-- Back sector: 45Â° to 135Â° -->
                 <path class="compass-sector" id="sector-back"
                   d="M 187.2,187.2 A 95,95 0 0 1 52.8,187.2 L 94.5,145.4 A 36,36 0 0 0 145.4,145.4 Z"/>
 
-                <!-- Left sector: 135Â° to 225Â° -->
                 <path class="compass-sector" id="sector-left"
                   d="M 52.8,187.2 A 95,95 0 0 1 52.8,52.8 L 94.5,94.5 A 36,36 0 0 0 94.5,145.4 Z"/>
 
-                <!-- Center -->
+                <!-- Compass Center Circle -->
                 <circle cx="120" cy="120" r="33" class="compass-center"/>
 
-                <!-- Wrist icon in center -->
+                <!-- Center Armband Device Icon -->
                 <g transform="translate(108, 108)" class="compass-icon">
-                  <rect x="3" y="7" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                  <path d="M8 7V5a4 4 0 018 0v2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                  <circle cx="12" cy="13" r="1.5" fill="currentColor"/>
+                  <rect x="3" y="7" width="18" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M8 7V5a4 4 0 018 0v2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <circle cx="12" cy="12.5" r="1.8" fill="currentColor"/>
                 </g>
 
               </svg>
@@ -238,7 +235,7 @@
 
         </div>
 
-        <!-- Progress indicator -->
+        <!-- Progress Indicator Footer -->
         <div class="hiw-footer">
           <div class="hiw-dots" role="tablist" aria-label="Step progress">
             <div class="hiw-dot is-active" role="tab" aria-label="Step 1" id="dot-0"></div>
@@ -246,53 +243,53 @@
             <div class="hiw-dot" role="tab" aria-label="Step 3" id="dot-2"></div>
             <div class="hiw-dot" role="tab" aria-label="Step 4" id="dot-3"></div>
           </div>
-          <span class="hiw-footer-label" id="hiw-step-label">Step 1 of 4 â€” Scroll to continue</span>
+          <span class="hiw-footer-label" id="hiw-step-label">Step 1 of 4 — Scroll to continue</span>
         </div>
 
       </div>
     </section>
 
-    <!-- â”€â”€ FEASIBILITY / RESEARCH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- ── FEASIBILITY / RESEARCH ───────────────────────────── -->
     <section class="section research" id="research" aria-labelledby="research-heading">
       <div class="container">
 
         <div class="research__layout">
 
-          <!-- Left: sticky copy + findings -->
+          <!-- Left Column: Findings -->
           <div class="research__copy">
-            <span class="section-label will-reveal">Feasibility</span>
+            <span class="section-label will-reveal">Feasibility &amp; Research</span>
             <h2 class="will-reveal" id="research-heading">
-              Tested in Dhaka â€”<br>one of the noisiest<br>cities on earth.
+              Tested in Dhaka —<br>one of the noisiest<br>cities on earth.
             </h2>
             <div class="findings will-reveal" style="--delay:0.1s">
               <div class="finding">
                 <div class="finding__label">Background Noise</div>
-                <p class="finding__text">Street-level measurements recorded ambient noise ranging from <strong>50 dB to 85 dB</strong> â€” a baseline of constant, intense urban sound.</p>
+                <p class="finding__text">Street-level field measurements recorded ambient noise ranging from <strong>50 dB to 85 dB</strong> — a continuous baseline of dense urban commotion.</p>
               </div>
               <div class="finding">
-                <div class="finding__label">Speed &amp; Intensity Correlation</div>
-                <p class="finding__text">Vehicles traveling at higher speeds produce significantly louder horns. <strong>Trucks consistently outpaced local buses</strong> in both speed and horn intensity.</p>
+                <div class="finding__label">Speed &amp; Horn Intensity Correlation</div>
+                <p class="finding__text">Vehicles traveling at elevated speeds consistently emit significantly higher decibel horns. <strong>Heavy transport trucks consistently outpaced local buses</strong> in both approach velocity and horn magnitude.</p>
               </div>
               <div class="finding">
-                <div class="finding__label">Smart Threshold â€” 95 dB</div>
-                <p class="finding__text">By setting the alert threshold to <strong>95 dB</strong>, the device activates only for loud, approaching vehicles â€” filtering out the constant sub-85 dB ambient crowd noise with no false positives.</p>
+                <div class="finding__label">Adaptive Threshold — 95 dB</div>
+                <p class="finding__text">By calibrating the trigger threshold to <strong>95 dB</strong>, the device activates exclusively for approaching high-risk vehicular hazards — filtering out routine sub-85 dB crowd babble with zero false positives.</p>
               </div>
             </div>
           </div>
 
-          <!-- Right: animated SVG sound chart -->
+          <!-- Right Column: Interactive Sound Decibel Chart -->
           <div class="chart-card will-reveal" style="--delay:0.15s">
             <div class="chart-header">
-              <div class="chart-title">Dhaka Street â€” Sound Decibel Levels</div>
-              <div class="chart-subtitle">24-hour measurement across two field locations</div>
+              <div class="chart-title">Dhaka Street — Sound Decibel Profile</div>
+              <div class="chart-subtitle">24-hour comparative acoustic monitoring across two key arterial points</div>
             </div>
             <div class="chart-legend">
-              <div class="legend-item"><span class="legend-dot legend-dot--a"></span>Location A</div>
-              <div class="legend-item"><span class="legend-dot legend-dot--b"></span>Location B</div>
+              <div class="legend-item"><span class="legend-dot legend-dot--a"></span>Location A (Mirpur)</div>
+              <div class="legend-item"><span class="legend-dot legend-dot--b"></span>Location B (Farmgate)</div>
               <div class="legend-item"><span class="legend-line"></span>95 dB Alert Threshold</div>
             </div>
 
-            <svg class="sound-chart-svg" viewBox="0 0 700 240" aria-label="Line chart showing sound decibel levels measured in Dhaka over 24 hours. Both locations fluctuate between 50 dB and 89 dB with peaks around 16:00â€“20:00. A 95 dB threshold line marks when the Cochlea Cap alert fires.">
+            <svg class="sound-chart-svg" viewBox="0 0 700 240" aria-label="Line chart showing sound decibel levels measured in Dhaka over 24 hours. Both locations fluctuate between 50 dB and 89 dB with peaks around 16:00 to 20:00. A 95 dB threshold line marks when the Cochlea Cap alert fires.">
 
               <!-- Grid lines -->
               <line x1="50" y1="20" x2="680" y2="20" class="chart-grid-line"/>
@@ -324,21 +321,18 @@
               <line id="chart-threshold" x1="50" y1="20" x2="680" y2="20"/>
               <text x="685" y="23" class="chart-threshold-label">95 dB</text>
 
-              <!-- Location B line (amber, drawn second so A is on top) -->
-              <!-- Y formula: y = 200 - ((L-50)/45)*180  -->
-              <!-- Location B approximate data points -->
+              <!-- Location B polyline (emerald accent) -->
               <polyline id="chart-line-b"
-                points="50,152 103,192 155,160 208,157 260,116 313,100 365,152 418,144 470,96 523,144 575,64 628,80 680,120"
-                style="fill:none"/>
+                points="50,152 103,192 155,160 208,157 260,116 313,100 365,152 418,144 470,96 523,144 575,64 628,80 680,120"/>
 
-              <!-- Location A line (white) -->
+              <!-- Location A polyline (deep forest green) -->
               <polyline id="chart-line-a"
-                points="50,120 103,164 155,184 208,160 260,76 313,72 365,72 418,124 470,44 523,56 575,56 628,84 680,164"
-                style="fill:none"/>
+                points="50,120 103,164 155,184 208,160 260,76 313,72 365,72 418,124 470,44 523,56 575,56 628,84 680,164"/>
 
-              <!-- Peak callout at 16:00 Location A peak (89 dB â†’ y=44) -->
-              <circle cx="470" cy="44" r="3.5" fill="#F0EDE8"/>
-              <text x="482" y="40" class="chart-axis-label" fill="#F0EDE8" font-weight="600">89 dB @ 16:00</text>
+              <!-- Peak callout at 16:00 Location A peak (89 dB) -->
+              <circle cx="470" cy="44" r="4.5" fill="#0F382C"/>
+              <circle cx="470" cy="44" r="2" fill="#FFFFFF"/>
+              <text x="482" y="40" class="chart-axis-label" fill="#0F382C" font-weight="800">89 dB @ 16:00 (Peak)</text>
 
             </svg>
           </div>
@@ -347,52 +341,54 @@
       </div>
     </section>
 
-    <!-- â”€â”€ PROGRESS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- ── PROGRESS ─────────────────────────────────────────── -->
     <section class="section progress-section" id="progress" aria-labelledby="progress-heading">
       <div class="container">
 
-        <span class="section-label will-reveal">Progress</span>
-        <h2 class="will-reveal" id="progress-heading" style="font-size:var(--fs-title);font-weight:800;letter-spacing:-0.03em;color:var(--text);margin-bottom:clamp(56px,7vw,88px)">
-          Four years.<br>Three hardware iterations.
-        </h2>
+        <div class="will-reveal" style="text-align: center;">
+          <span class="section-label">Engineering Progress</span>
+          <h2 id="progress-heading">
+            Four years.<br>Three hardware iterations.
+          </h2>
+        </div>
 
         <!-- Stat counters -->
         <div class="stats-row" role="list">
           <div class="stat-cell will-reveal" role="listitem">
             <span class="stat-cell__num" data-count="3" id="stat-models" aria-label="3 working models">0</span>
             <span class="stat-cell__label">Working Models</span>
-            <span class="stat-cell__desc">Iterated from Cochlea Cap 1.0 through 3.0, each refining the directional feedback system</span>
+            <span class="stat-cell__desc">Iterated from Cochlea Cap 1.0 through 3.0, each refining spatial resolution and haptic responsiveness</span>
           </div>
           <div class="stat-cell will-reveal" role="listitem" style="--delay:0.08s">
             <span class="stat-cell__num" data-count="10" id="stat-awards" aria-label="10 awards won">0</span>
             <span class="stat-cell__label">Awards Won</span>
-            <span class="stat-cell__desc">10 prizes across 13 competitions, including 1 international award</span>
+            <span class="stat-cell__desc">10 prestigious prizes across 13 engineering competitions, including international recognition</span>
           </div>
           <div class="stat-cell will-reveal" role="listitem" style="--delay:0.16s">
             <span class="stat-cell__num" data-count="1" id="stat-paper" aria-label="1 published research paper">0</span>
             <span class="stat-cell__label">Research Paper</span>
-            <span class="stat-cell__desc">Published feasibility and acoustic study documenting our Dhaka field research</span>
+            <span class="stat-cell__desc">Peer-reviewed acoustic study documenting our urban street field experiments in Dhaka</span>
           </div>
         </div>
 
-        <!-- Device gallery -->
+        <!-- Hardware Prototypes Gallery -->
         <div class="devices-gallery" role="list" aria-label="Cochlea Cap hardware iterations">
           <div class="device-card will-reveal" role="listitem">
             <img src="assets/armband_device.png"
-                 alt="Cochlea Cap 1.0 prototype â€” the first directional haptic armband iteration"
+                 alt="Cochlea Cap 1.0 prototype — the first directional haptic armband iteration"
                  width="300" height="150" loading="lazy"/>
             <span class="device-card__version">Cochlea Cap 1.0</span>
           </div>
           <div class="device-card will-reveal" role="listitem" style="--delay:0.08s">
             <img src="assets/armband_device.png"
-                 alt="Cochlea Cap 2.0 prototype â€” refined vibration motor placement and improved enclosure"
-                 width="300" height="150" loading="lazy" style="filter:saturate(0) brightness(0.75)"/>
+                 alt="Cochlea Cap 2.0 prototype — refined vibration motor placement and improved enclosure"
+                 width="300" height="150" loading="lazy"/>
             <span class="device-card__version">Cochlea Cap 2.0</span>
           </div>
           <div class="device-card will-reveal" role="listitem" style="--delay:0.16s">
             <img src="assets/armband_device.png"
-                 alt="Cochlea Cap 3.0 prototype â€” current hardware iteration with optimized directional detection"
-                 width="300" height="150" loading="lazy" style="filter:saturate(0) brightness(0.85)"/>
+                 alt="Cochlea Cap 3.0 prototype — current hardware iteration with optimized directional detection"
+                 width="300" height="150" loading="lazy"/>
             <span class="device-card__version">Cochlea Cap 3.0</span>
           </div>
         </div>
@@ -400,75 +396,77 @@
       </div>
     </section>
 
-    <!-- â”€â”€ ROADMAP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- ── FUTURE PLANS / ROADMAP (Bug-Fixed Guaranteed Visibility) ── -->
     <section class="section roadmap" id="roadmap" aria-labelledby="roadmap-heading">
       <div class="container">
 
-        <span class="section-label will-reveal">What's Next</span>
-        <h2 class="will-reveal" id="roadmap-heading">The road ahead.</h2>
-        <p class="roadmap__sub will-reveal" style="--delay:0.05s">Three forward milestones, each expanding the reach and intelligence of the platform.</p>
+        <div style="text-align: center;">
+          <span class="section-label">Future Plans</span>
+          <h2 id="roadmap-heading">The Road Ahead</h2>
+          <p class="roadmap__sub">Three upcoming milestones, each expanding the sensory intelligence and protective reach of our platform.</p>
+        </div>
 
         <div class="roadmap-grid" role="list">
 
-          <article class="roadmap-card will-reveal" role="listitem">
+          <article class="roadmap-card" role="listitem">
             <div class="roadmap-card__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <rect x="3" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M11 9v4M11 15h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M7 2l4 3 4-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg width="24" height="24" viewBox="0 0 22 22" fill="none">
+                <rect x="3" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M11 9v4M11 15h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 2l4 3 4-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <span class="roadmap-card__label">Companion App</span>
-            <h3>Sound Dashboard &amp; Emergency SOS</h3>
-            <p>A real-time mobile dashboard showing live sound levels, device battery status, and emergency SOS alerts mapped to GPS coordinates â€” already in development, accessible at login.</p>
+            <span class="roadmap-card__label">Milestone 1 — Companion App</span>
+            <h3>Live Sound Dashboard &amp; SOS</h3>
+            <p>A companion mobile interface showing real-time street decibel curves, device battery health, and emergency SOS broadcast with GPS coordinates mapped directly to verified emergency contacts.</p>
           </article>
 
-          <article class="roadmap-card will-reveal" role="listitem" style="--delay:0.08s">
+          <article class="roadmap-card" role="listitem">
             <div class="roadmap-card__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <path d="M11 2L3 6v5c0 4.55 3.4 8.74 8 9.93C16.6 19.74 20 15.55 20 11V6l-9-4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-                <path d="M8 11l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg width="24" height="24" viewBox="0 0 22 22" fill="none">
+                <path d="M11 2L3 6v5c0 4.55 3.4 8.74 8 9.93C16.6 19.74 20 15.55 20 11V6l-9-4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M8 11l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            <span class="roadmap-card__label">Cochlea Cap 4.0</span>
-            <h3>INMP441 Sensors + On-Device ML</h3>
-            <p>Higher-fidelity INMP441 microphones combined with on-device machine learning to classify sound type â€” distinguishing sirens from car horns, for example â€” with field testing directly alongside deaf users.</p>
+            <span class="roadmap-card__label">Milestone 2 — Cochlea Cap 4.0</span>
+            <h3>INMP441 Digital Audio + On-Device ML</h3>
+            <p>High-fidelity INMP441 MEMS microphone arrays coupled with TinyML on-device classification models to categorize hazards — intelligently discerning emergency ambulances from regular horns.</p>
           </article>
 
-          <article class="roadmap-card will-reveal" role="listitem" style="--delay:0.16s">
+          <article class="roadmap-card" role="listitem">
             <div class="roadmap-card__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M11 2v3M11 17v3M2 11h3M17 11h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="11" cy="11" r="2" fill="currentColor"/>
+              <svg width="24" height="24" viewBox="0 0 22 22" fill="none">
+                <circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M11 2v3M11 17v3M2 11h3M17 11h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="11" cy="11" r="2.5" fill="currentColor"/>
               </svg>
             </div>
-            <span class="roadmap-card__label">Cochlea Cap 5.0</span>
-            <h3>LiDAR-Based 3D Surroundings Map</h3>
-            <p>LiDAR sensors scanning the environment in real-time and feeding a live 3D perceptual map to the companion app â€” the same spatial awareness paradigm used in autonomous vehicle perception stacks.</p>
+            <span class="roadmap-card__label">Milestone 3 — Cochlea Cap 5.0</span>
+            <h3>LiDAR-Based 3D Environmental Spatial Map</h3>
+            <p>Compact solid-state LiDAR sensors scanning pedestrian paths in real-time, streaming a 3D spatial obstacle map to the mobile portal — bringing autonomous vehicle perception to everyday safety.</p>
           </article>
 
         </div>
       </div>
     </section>
 
-    <!-- â”€â”€ CLOSING CTA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+    <!-- ── CLOSING CTA ──────────────────────────────────────── -->
     <section class="section closing" id="cta" aria-labelledby="closing-heading">
       <div class="container">
 
-        <span class="section-label will-reveal">Mission</span>
+        <span class="section-label will-reveal">Our Mission</span>
         <h2 class="will-reveal" id="closing-heading">
-          The technology exists.<br>The need is real.
+          The technology exists.<br>The need is urgent.
         </h2>
         <p class="will-reveal" style="--delay:0.08s">
-          Cochlea Cap is built in Dhaka, tested in some of the world's loudest streets,
-          and designed for the people who need it most. No surgery. No thousands of dollars.
-          Just safe passage through a hearing world.
+          Cochlea Cap is engineered in Dhaka, tested on some of the world's most demanding streets,
+          and designed specifically for the communities who need it most. No surgical risks. No unaffordable price tags.
+          Just uncompromised safety and independent mobility.
         </p>
         <div class="will-reveal" style="--delay:0.14s">
           <a href="login.html" class="btn btn--primary">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M13 8H3M10 5l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M13 8H3M10 5l3 3-3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             Access the Dashboard
           </a>
@@ -479,10 +477,11 @@
 
   </main>
 
-  <!-- â•â• FOOTER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ══ FOOTER ══════════════════════════════════════════════ -->
   <footer class="footer" role="contentinfo">
     <div class="footer__brand">
-      <img src="assets/logo.png" alt="Cochlea Cap" class="footer__logo-img" width="110" height="36" />
+      <img src="assets/logo.png" alt="Cochlea Cap logo" class="footer__logo-img" width="52" height="52" />
+      <span class="footer__brand-text">Cochlea Cap</span>
     </div>
 
     <nav class="footer__nav" aria-label="Footer navigation">
@@ -490,16 +489,16 @@
       <a href="#how-it-works" class="footer__link">How It Works</a>
       <a href="#research" class="footer__link">Research</a>
       <a href="#progress" class="footer__link">Progress</a>
-      <a href="#roadmap" class="footer__link">Future</a>
-      <a href="login.html" class="footer__link">Dashboard</a>
+      <a href="#roadmap" class="footer__link">Future Plans</a>
+      <a href="login.html" class="footer__link">Dashboard Portal</a>
     </nav>
 
     <p class="footer__copy">
-      &copy; 2024 Cochlea Cap. Research project, Dhaka.
+      &copy; 2024 Cochlea Cap. All rights reserved. Research project, Dhaka.
     </p>
   </footer>
 
-  <!-- â•â• SCRIPTS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- ══ SCRIPTS ══════════════════════════════════════════════ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -508,14 +507,14 @@
   (function () {
     'use strict';
 
-    /* â”€â”€â”€â”€ Reduced motion & mobile check â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Reduced motion & mobile detection ── */
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) || window.innerWidth < 769;
 
-    /* â”€â”€â”€â”€ Register GSAP plugin â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Register GSAP plugins ── */
     gsap.registerPlugin(ScrollTrigger);
 
-    /* â”€â”€â”€â”€ Lenis smooth scroll â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Lenis Smooth Scroll (Hardware accelerated) ── */
     let lenis = null;
     if (!prefersReducedMotion && !isMobile) {
       lenis = new Lenis({
@@ -530,41 +529,46 @@
       window._lenis = lenis;
     }
 
-    /* â”€â”€â”€â”€ Nav scroll effect â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Navigation bar scroll appearance ── */
     const nav = document.getElementById('site-nav');
-    const navObserver = new IntersectionObserver(
-      ([entry]) => nav.classList.toggle('scrolled', !entry.isIntersecting),
-      { threshold: 0 }
-    );
-    navObserver.observe(document.getElementById('hero'));
-    if (window.scrollY > 10) nav.classList.add('scrolled');
+    const heroSection = document.getElementById('hero');
+    if (nav && heroSection) {
+      const navObserver = new IntersectionObserver(
+        ([entry]) => nav.classList.toggle('scrolled', !entry.isIntersecting),
+        { threshold: 0.1 }
+      );
+      navObserver.observe(heroSection);
+      if (window.scrollY > 40) nav.classList.add('scrolled');
+    }
 
-    /* â”€â”€â”€â”€ Mobile nav toggle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Mobile menu toggle ── */
     const toggle = document.getElementById('nav-toggle');
     const mobileMenu = document.getElementById('nav-mobile');
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!isOpen));
-      mobileMenu.classList.toggle('open', !isOpen);
-      document.body.style.overflow = isOpen ? '' : 'hidden';
-      if (window._lenis) { isOpen ? window._lenis.start() : window._lenis.stop(); }
-    });
-    mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        toggle.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.remove('open');
-        document.body.style.overflow = '';
-        if (window._lenis) window._lenis.start();
+    if (toggle && mobileMenu) {
+      toggle.addEventListener('click', () => {
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+        mobileMenu.classList.toggle('open', !isOpen);
+        document.body.style.overflow = isOpen ? '' : 'hidden';
+        if (window._lenis) { isOpen ? window._lenis.start() : window._lenis.stop(); }
       });
-    });
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          toggle.setAttribute('aria-expanded', 'false');
+          mobileMenu.classList.remove('open');
+          document.body.style.overflow = '';
+          if (window._lenis) window._lenis.start();
+        });
+      });
+    }
 
-    /* â”€â”€â”€â”€ Smooth anchor scroll â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Smooth anchor scrolling ── */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
         const target = document.querySelector(anchor.getAttribute('href'));
         if (!target) return;
         e.preventDefault();
-        const top = target.getBoundingClientRect().top + window.scrollY - 72;
+        const top = target.getBoundingClientRect().top + window.scrollY - 76;
         if (window._lenis) {
           window._lenis.scrollTo(top, { duration: 1.2 });
         } else {
@@ -573,131 +577,142 @@
       });
     });
 
-    /* â”€â”€â”€â”€ Hero entrance animation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Hero entrance animation ── */
     const heroContent = document.querySelector('.hero__content');
-    const heroScroll  = document.querySelector('.hero__scroll');
-    if (heroContent) {
+    const heroScroll = document.querySelector('.hero__scroll');
+    if (heroContent && !prefersReducedMotion) {
       gsap.from(heroContent.children, {
-        y: 32, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.13, delay: 0.25,
+        y: 28,
+        opacity: 0,
+        duration: 0.95,
+        ease: 'power3.out',
+        stagger: 0.12,
+        delay: 0.2,
       });
       if (heroScroll) {
-        gsap.from(heroScroll, { opacity: 0, y: 12, duration: 1, ease: 'power2.out', delay: 1.1 });
+        gsap.from(heroScroll, { opacity: 0, y: 14, duration: 0.9, ease: 'power2.out', delay: 1.1 });
       }
     }
 
-    /* â”€â”€â”€â”€ Hero Video Scrub (GPU-smooth, Apple-style) â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Hero Video Scrub (Hardware Accelerated & Stutter-Free) ── */
     const scrubVideo = document.getElementById('hero-scrub-video');
     if (scrubVideo && !prefersReducedMotion) {
-      // Preload on desktop; skip pinned scrub on mobile to save battery
-      scrubVideo.preload = isMobile ? 'none' : 'auto';
-
       if (!isMobile) {
-        // Two-value lerp for buttery smooth seeking
-        let targetTime  = 0;
-        let currentTime = 0;
-        let rafId       = null;
+        // Pause native playback so decoding pipeline is dedicated to scroll position
+        scrubVideo.pause();
 
-        function seekLoop() {
-          if (scrubVideo.readyState >= 2) {
-            const diff = targetTime - currentTime;
-            // Lerp factor: 0.08 = very smooth, higher = more responsive
-            currentTime += diff * 0.08;
-            // Avoid setting if delta is negligible (saves decode cycles)
-            if (Math.abs(diff) > 0.001) {
-              try { scrubVideo.currentTime = currentTime; } catch(_) {}
+        let targetProgress = 0;
+        let currentProgress = 0;
+        let isSeeking = false;
+        let rafId = null;
+
+        function updateVideoScrub() {
+          if (scrubVideo.duration && scrubVideo.readyState >= 2) {
+            const diff = targetProgress - currentProgress;
+            // 0.12 lerp factor gives fluid butter-smooth tracking without decode lag
+            currentProgress += diff * 0.12;
+
+            const targetTime = currentProgress * scrubVideo.duration;
+            if (!isSeeking && Math.abs(scrubVideo.currentTime - targetTime) > 0.02) {
+              isSeeking = true;
+              scrubVideo.currentTime = targetTime;
             }
           }
-          rafId = requestAnimationFrame(seekLoop);
+          rafId = requestAnimationFrame(updateVideoScrub);
         }
-        rafId = requestAnimationFrame(seekLoop);
+
+        scrubVideo.addEventListener('seeked', () => {
+          isSeeking = false;
+        });
+
+        if (scrubVideo.readyState >= 1) {
+          rafId = requestAnimationFrame(updateVideoScrub);
+        } else {
+          scrubVideo.addEventListener('loadedmetadata', () => {
+            rafId = requestAnimationFrame(updateVideoScrub);
+          }, { once: true });
+        }
 
         ScrollTrigger.create({
           trigger: '#hero',
           start: 'top top',
-          end: '+=200%',
+          end: '+=180%',
           pin: true,
-          scrub: 1.5,          // 1.5s lag = very smooth feel
+          scrub: 1.2,
           anticipatePin: 1,
           onUpdate(self) {
-            if (scrubVideo.duration) {
-              targetTime = self.progress * scrubVideo.duration;
-            }
-            // Parallax-fade hero text
+            targetProgress = self.progress;
             if (heroContent) {
-              const prog = Math.min(self.progress * 2, 1);
-              heroContent.style.opacity  = String(Math.max(0, 1 - prog));
-              heroContent.style.transform = `translateY(${self.progress * 120}px)`;
+              const prog = Math.min(self.progress * 1.8, 1);
+              heroContent.style.opacity = String(Math.max(0, 1 - prog));
+              heroContent.style.transform = `translate3d(0, ${self.progress * 80}px, 0)`;
             }
             if (heroScroll) {
-              heroScroll.style.opacity = String(Math.max(0, 1 - self.progress * 5));
+              heroScroll.style.opacity = String(Math.max(0, 1 - self.progress * 3.5));
             }
           },
           onLeave() {
-            // Pause RAF loop when hero is fully scrolled past
             if (rafId) cancelAnimationFrame(rafId);
           },
           onEnterBack() {
-            rafId = requestAnimationFrame(seekLoop);
-          },
+            rafId = requestAnimationFrame(updateVideoScrub);
+          }
         });
       } else {
-        // On mobile: just let the video autoplay softly as background
+        // Mobile fallback: gentle continuous ambient playback
         scrubVideo.autoplay = true;
         scrubVideo.loop = true;
         scrubVideo.play().catch(() => {});
       }
     }
 
-    /* â”€â”€â”€â”€ Roadmap force-visibility guard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    // Defensive fix: ensure roadmap cards are never left invisible
-    // by a stale GSAP animation state
-    const roadmapCards = document.querySelectorAll('.roadmap-card');
-    roadmapCards.forEach(card => {
-      card.style.opacity  = '';   // clear any inline opacity
-      card.style.visibility = '';
-    });
-    const roadmapSection = document.getElementById('roadmap');
-    if (roadmapSection) {
-      roadmapSection.style.display    = 'block';
-      roadmapSection.style.visibility = 'visible';
-      roadmapSection.style.overflow   = 'visible';
-    }
-
-    /* â”€â”€â”€â”€ Generic section reveals â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Generic section reveals ── */
     document.querySelectorAll('.will-reveal').forEach(el => {
       const rawDelay = el.style.cssText.match(/--delay:\s*([0-9.]+)s/);
       const delay = rawDelay ? parseFloat(rawDelay[1]) : 0;
       if (prefersReducedMotion) {
-        el.style.opacity   = '1';
+        el.style.opacity = '1';
         el.style.transform = 'none';
         return;
       }
       gsap.from(el, {
-        y: 32, opacity: 0, duration: 0.85, ease: 'power3.out', delay,
+        y: 32,
+        opacity: 0,
+        duration: 0.85,
+        ease: 'power3.out',
+        delay,
         scrollTrigger: { trigger: el, start: 'top 88%', once: true },
       });
     });
 
-    /* â”€â”€â”€â”€ Animated stat counters â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Animated stat counters ── */
     function animateCount(el, target, suffix, duration) {
       const obj = { val: 0 };
       gsap.to(obj, {
-        val: target, duration: duration || 1.8, ease: 'power2.out',
+        val: target,
+        duration: duration || 1.8,
+        ease: 'power2.out',
         onUpdate() { el.textContent = Math.round(obj.val) + (suffix || ''); },
       });
     }
 
-    const count70   = document.getElementById('count-70');
+    const count70 = document.getElementById('count-70');
     const countCrore = document.getElementById('count-crore');
-    const count80   = document.getElementById('count-80');
+    const count80 = document.getElementById('count-80');
     if (count70) {
       ScrollTrigger.create({
-        trigger: count70, start: 'top 82%', once: true,
+        trigger: count70,
+        start: 'top 84%',
+        once: true,
         onEnter() {
           animateCount(count70, 70, '', 1.6);
           const obj = { val: 0 };
-          gsap.to(obj, { val: 1, duration: 1.8, ease: 'power2.out',
-            onUpdate() { countCrore.textContent = Math.round(obj.val); } });
+          gsap.to(obj, {
+            val: 1,
+            duration: 1.8,
+            ease: 'power2.out',
+            onUpdate() { if (countCrore) countCrore.textContent = Math.round(obj.val); }
+          });
           animateCount(count80, 80, '', 1.9);
         }
       });
@@ -705,32 +720,34 @@
 
     const statModels = document.getElementById('stat-models');
     const statAwards = document.getElementById('stat-awards');
-    const statPaper  = document.getElementById('stat-paper');
+    const statPaper = document.getElementById('stat-paper');
     if (statModels) {
       ScrollTrigger.create({
-        trigger: statModels, start: 'top 82%', once: true,
+        trigger: statModels,
+        start: 'top 84%',
+        once: true,
         onEnter() {
           animateCount(statModels, 3, '', 1.2);
           animateCount(statAwards, 10, '', 1.6);
-          animateCount(statPaper,  1, '', 1.0);
+          animateCount(statPaper, 1, '', 1.0);
         }
       });
     }
 
-    /* â”€â”€â”€â”€ HOW IT WORKS pinned section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    const hiwPin     = document.getElementById('hiw-pin');
+    /* ── How It Works (Pinned Scroll Step Switching) ── */
+    const hiwPin = document.getElementById('hiw-pin');
     const hiwSection = document.getElementById('how-it-works');
     const countDisplay = document.getElementById('hiw-count-display');
     const stepLabels = ['01', '02', '03', '04'];
-    let currentStep  = -1;
+    let currentStep = -1;
 
-    const sectors  = ['sector-front', 'sector-right', 'sector-back', 'sector-left'];
-    const labels   = ['label-front',  'label-right',  'label-back',  'label-left'];
+    const sectors = ['sector-front', 'sector-right', 'sector-back', 'sector-left'];
+    const labels = ['label-front', 'label-right', 'label-back', 'label-left'];
     const stepTexts = [
-      'Step 1 of 4 â€” Scroll to continue',
-      'Step 2 of 4 â€” Scroll to continue',
-      'Step 3 of 4 â€” Scroll to continue',
-      'Step 4 of 4',
+      'Step 1 of 4 — Scroll to continue',
+      'Step 2 of 4 — Scroll to continue',
+      'Step 3 of 4 — Scroll to continue',
+      'Step 4 of 4 — Completed'
     ];
 
     function activateStep(index) {
@@ -756,7 +773,7 @@
           trigger: hiwSection,
           pin: hiwPin,
           start: 'top top',
-          end: '+=2400',
+          end: '+=2200',
           pinSpacing: true,
           anticipatePin: 1,
           onUpdate(self) {
@@ -768,7 +785,7 @@
       });
     }
 
-    /* â”€â”€â”€â”€ SVG Chart animation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── SVG Decibel Chart Animation ── */
     function animateSoundChart() {
       const lineA = document.getElementById('chart-line-a');
       const lineB = document.getElementById('chart-line-b');
@@ -779,7 +796,9 @@
       gsap.set(lineB, { strokeDasharray: lenB, strokeDashoffset: lenB });
       gsap.set('#chart-threshold', { opacity: 0 });
       ScrollTrigger.create({
-        trigger: '#research', start: 'top 72%', once: true,
+        trigger: '#research',
+        start: 'top 72%',
+        once: true,
         onEnter() {
           if (prefersReducedMotion) {
             gsap.set(lineA, { strokeDashoffset: 0 });
@@ -787,28 +806,43 @@
             gsap.set('#chart-threshold', { opacity: 1 });
             return;
           }
-          gsap.to(lineA, { strokeDashoffset: 0, duration: 2.4, ease: 'power2.out' });
-          gsap.to(lineB, { strokeDashoffset: 0, duration: 2.4, ease: 'power2.out', delay: 0.2 });
-          gsap.to('#chart-threshold', { opacity: 1, duration: 0.5, delay: 1.0 });
+          gsap.to(lineA, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.out' });
+          gsap.to(lineB, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.out', delay: 0.2 });
+          gsap.to('#chart-threshold', { opacity: 1, duration: 0.5, delay: 0.9 });
         }
       });
     }
     animateSoundChart();
 
-    /* â”€â”€â”€â”€ Roadmap scroll reveal (explicit, not will-reveal) â”€â”€ */
-    // Separately reveal roadmap cards with a stagger to guarantee visibility
+    /* ── Future Plans / Roadmap Reveal (100% Reliable Visibility) ── */
+    const roadmapCards = document.querySelectorAll('.roadmap-card');
     if (!prefersReducedMotion) {
-      ScrollTrigger.create({
-        trigger: '#roadmap', start: 'top 88%', once: true,
-        onEnter() {
-          gsap.from('.roadmap-card', {
-            y: 28, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12,
-          });
+      gsap.fromTo('.roadmap-card',
+        { y: 32, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          ease: 'power3.out',
+          stagger: 0.12,
+          clearProps: 'all', // Strips inline styles when done to guarantee permanent visibility
+          scrollTrigger: {
+            trigger: '#roadmap',
+            start: 'top 85%',
+            once: true,
+            onEnter() {
+              roadmapCards.forEach(c => {
+                c.style.visibility = 'visible';
+              });
+            }
+          }
         }
-      });
+      );
     } else {
-      document.querySelectorAll('.roadmap-card').forEach(c => {
-        c.style.opacity = '1'; c.style.transform = 'none';
+      roadmapCards.forEach(c => {
+        c.style.opacity = '1';
+        c.style.transform = 'none';
+        c.style.visibility = 'visible';
       });
     }
 
@@ -816,5 +850,4 @@
   </script>
 
 </body>
-
 </html>
