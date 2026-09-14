@@ -57,10 +57,9 @@
     <!-- ── HERO ──────────────────────────────────────────────── -->
     <section class="hero" id="hero" aria-labelledby="hero-headline">
 
-      <!-- Background video loop (muted, no audio information) -->
+      <!-- Background video (scrubbed by GSAP) -->
       <div class="hero__video-wrap" aria-hidden="true">
-        <video class="hero__video" autoplay muted loop playsinline preload="metadata"
-               aria-hidden="true">
+        <video id="hero-scrub-video" class="hero__video" muted playsinline preload="metadata" aria-hidden="true">
           <source src="assets/video/hero-loop.mp4" type="video/mp4" />
         </video>
         <div class="hero__overlay"></div>
@@ -578,9 +577,13 @@
       });
     });
 
-    /* ──── Hero entrance animation ──────────────────────────── */
+    /* ──── Hero entrance & 3D Video Scrub ───────────────────── */
+    const scrubVideo = document.getElementById('hero-scrub-video');
+    
     if (!prefersReducedMotion) {
       const heroContent = document.querySelector('.hero__content');
+      const heroScroll = document.querySelector('.hero__scroll');
+      
       if (heroContent) {
         gsap.from(heroContent.children, {
           y: 36,
@@ -590,12 +593,53 @@
           stagger: 0.14,
           delay: 0.3,
         });
-        gsap.from('.hero__scroll', {
+        gsap.from(heroScroll, {
           opacity: 0,
           y: 12,
           duration: 1,
           ease: 'power2.out',
           delay: 1.2,
+        });
+      }
+
+      // 3D Scrollable Video Effect (Apple-style scrubbing)
+      if (scrubVideo) {
+        // Force load metadata to get duration
+        scrubVideo.load();
+        
+        let targetTime = 0;
+        let currentTime = 0;
+        
+        // Smooth interpolation for video scrubbing
+        function renderVideo() {
+          if (scrubVideo.readyState >= 2) { // HAVE_CURRENT_DATA
+            // Lerp towards target time
+            currentTime += (targetTime - currentTime) * 0.1;
+            scrubVideo.currentTime = currentTime;
+          }
+          if (!prefersReducedMotion) requestAnimationFrame(renderVideo);
+        }
+        requestAnimationFrame(renderVideo);
+
+        ScrollTrigger.create({
+          trigger: '#hero',
+          start: 'top top',
+          end: '+=250%', // Pin for 2.5x the screen height
+          pin: true,
+          scrub: true,
+          onUpdate: (self) => {
+            if (scrubVideo.duration) {
+              targetTime = self.progress * scrubVideo.duration;
+            }
+            // Fade out the text as we scroll down to focus on the video
+            if (heroContent) {
+               heroContent.style.opacity = Math.max(0, 1 - (self.progress * 2));
+               heroContent.style.transform = `translateY(${self.progress * 150}px)`;
+            }
+            if (heroScroll) {
+               heroScroll.style.opacity = Math.max(0, 1 - (self.progress * 4));
+            }
+          }
         });
       }
     }
