@@ -169,7 +169,7 @@
         <div class="hiw-body">
 
           <!-- Step descriptions -->
-          <div class="hiw-steps-wrap" style="height: 240px;" aria-live="polite" aria-atomic="true">
+          <div class="hiw-steps-wrap" aria-live="polite" aria-atomic="true">
 
             <div class="hiw-step is-active" data-step="0" id="step-0">
               <span class="hiw-step__num">Step 01 / 04</span>
@@ -542,10 +542,10 @@
     const nav = document.getElementById('site-nav');
     const navObserver = new IntersectionObserver(
       ([entry]) => nav.classList.toggle('scrolled', !entry.isIntersecting),
-      { threshold: 0, rootMargin: '-80px 0px 0px 0px' }
+      { threshold: 0 }
     );
     navObserver.observe(document.getElementById('hero'));
-    nav.classList.add('scrolled'); // Always show backdrop after hero
+    if (window.scrollY > 10) nav.classList.add('scrolled');
 
     /* ──── Mobile nav toggle ────────────────────────────────── */
     const toggle = document.getElementById('nav-toggle');
@@ -602,7 +602,9 @@
 
     /* ──── Generic section reveals ──────────────────────────── */
     document.querySelectorAll('.will-reveal').forEach(el => {
-      const delay = parseFloat(el.style.getPropertyValue('--delay')) || 0;
+      // Read inline --delay custom property (el.style.getPropertyValue works for inline styles)
+      const rawDelay = el.style.cssText.match(/--delay:\s*([0-9.]+)s/);
+      const delay = rawDelay ? parseFloat(rawDelay[1]) : 0;
       if (prefersReducedMotion) {
         el.style.opacity = '1';
         el.style.transform = 'none';

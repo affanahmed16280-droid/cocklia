@@ -417,10 +417,10 @@ button { font-family: inherit; cursor: pointer; }
 .problem__copy strong { color: var(--text); font-weight: 600; }
 .problem__copy p + p { margin-top: 20px; }
 .problem__image-frame {
-  background: var(--card);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
-  padding: 48px;
+  padding: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -431,8 +431,6 @@ button { font-family: inherit; cursor: pointer; }
   max-height: 220px;
   width: auto;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.75;
 }
 
 /* ── 10. How It Works ─────────────────────────────────────── */
@@ -486,7 +484,7 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 /* Step panels */
-.hiw-steps-wrap { position: relative; }
+.hiw-steps-wrap { position: relative; height: 260px; }
 .hiw-step {
   position: absolute;
   top: 0; left: 0;
@@ -584,9 +582,16 @@ button { font-family: inherit; cursor: pointer; }
   .hiw-count { display: none; }
   .hiw-body { grid-template-columns: 1fr; }
   .hiw-visual { display: none; }
-  .hiw-steps-wrap { position: static; }
-  .hiw-step { position: static; opacity: 1; transform: none; pointer-events: auto; margin-bottom: 36px; }
+  .hiw-steps-wrap { position: static; height: auto; }
+  .hiw-step {
+    position: static;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    margin-bottom: 40px;
+  }
   .hiw-step:last-child { margin-bottom: 0; }
+  .hiw-footer { padding-top: 32px; }
 }
 
 /* ── 11. Research ─────────────────────────────────────────── */
@@ -865,9 +870,17 @@ button { font-family: inherit; cursor: pointer; }
 .footer__copy { font-size: var(--fs-xs); color: var(--text-muted); }
 
 /* ── 16. Shared animation state ───────────────────────────── */
+/* will-reveal: hidden by default, JS animates them in */
+/* noscript fallback: if JS fails, elements are still visible via the media query below */
 .will-reveal {
   opacity: 0;
   transform: translateY(36px);
+  /* Transition as fallback if GSAP hasn't loaded yet */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+/* If user has no-JS, make these visible */
+@media (scripting: none) {
+  .will-reveal { opacity: 1 !important; transform: none !important; }
 }
 
 /* ── 17. Responsive ───────────────────────────────────────── */
@@ -894,10 +907,25 @@ button { font-family: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
-  .will-reveal { opacity: 1 !important; transform: none !important; }
+  /* Show all hidden elements immediately */
+  .will-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  /* Stop video background */
   .hero__video { display: none; }
-  .scrollBounce { animation: none; }
+  /* Stop scroll indicator animation */
+  .hero__scroll-chevron { animation: none !important; }
   .hero__scroll { display: none; }
+  /* Ensure HIW steps are all visible on mobile-equivalent layout */
+  .hiw-step {
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
