@@ -341,7 +341,8 @@ a { text-decoration: none; color: inherit; }
 .btn-logout:hover { color: var(--danger); }
 
 /* ── Dashboard layout ─────────────────────────────────────── */
-.dashboard-layout { display: grid; grid-template-columns: 360px 1fr; flex: 1; overflow: hidden; background: var(--bg-alt); }
+/* flex:1 + height:100% together ensure the grid fills the remaining viewport after the topnav */
+.dashboard-layout { display: grid; grid-template-columns: 360px 1fr; flex: 1; height: 100%; overflow: hidden; background: var(--bg-alt); min-height: 0; }
 
 /* ── Sidebar ─────────────────────────────────────────────── */
 .sidebar {
@@ -417,10 +418,11 @@ a { text-decoration: none; color: inherit; }
 .sos-item__time { font-size: 0.6875rem; color: var(--text-muted); display: block; }
 
 /* ── Map section ─────────────────────────────────────────── */
-.map-section { display: flex; flex-direction: column; }
+/* overflow:hidden + min-height:0 let the child flex items (including Leaflet map) share height properly */
+.map-section { display: flex; flex-direction: column; overflow: hidden; min-height: 0; }
 .map-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 28px; background: var(--bg-alt);
+  padding: 20px 28px; background: var(--bg-alt); flex-shrink: 0;
 }
 .map-title { font-size: 1.25rem; font-weight: 800; color: var(--primary); }
 .map-sub { font-size: 0.8125rem; color: var(--text-muted); margin-top: 4px; }
@@ -439,7 +441,8 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-recenter:hover { background: var(--accent-dark); transform: translateY(-1px); }
 
-.leaflet-map { flex: 1; min-height: 0; background: #EAF2EE; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); }
+/* Leaflet map — flex:1 fills remaining space; min-height:320px is the safety net */
+.leaflet-map { flex: 1; min-height: 320px; background: #EAF2EE; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); }
 
 /* Stats bar */
 .stats-bar {
