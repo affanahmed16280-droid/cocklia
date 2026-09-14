@@ -580,9 +580,8 @@
     /* ──── Hero entrance & 3D Video Scrub ───────────────────── */
     const scrubVideo = document.getElementById('hero-scrub-video');
     
-    if (!prefersReducedMotion) {
-      const heroContent = document.querySelector('.hero__content');
-      const heroScroll = document.querySelector('.hero__scroll');
+    const heroContent = document.querySelector('.hero__content');
+    const heroScroll = document.querySelector('.hero__scroll');
       
       if (heroContent) {
         gsap.from(heroContent.children, {
@@ -617,7 +616,7 @@
             currentTime += (targetTime - currentTime) * 0.1;
             scrubVideo.currentTime = currentTime;
           }
-          if (!prefersReducedMotion) requestAnimationFrame(renderVideo);
+          requestAnimationFrame(renderVideo);
         }
         requestAnimationFrame(renderVideo);
 
@@ -642,8 +641,6 @@
           }
         });
       }
-    }
-
     /* ──── Generic section reveals ──────────────────────────── */
     document.querySelectorAll('.will-reveal').forEach(el => {
       // Read inline --delay custom property (el.style.getPropertyValue works for inline styles)

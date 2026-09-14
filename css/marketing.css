@@ -916,11 +916,6 @@ button { font-family: inherit; cursor: pointer; }
     transform: none !important;
     transition: none !important;
   }
-  /* Stop video background */
-  .hero__video { display: none; }
-  /* Stop scroll indicator animation */
-  .hero__scroll-chevron { animation: none !important; }
-  .hero__scroll { display: none; }
   /* Ensure HIW steps are all visible on mobile-equivalent layout */
   .hiw-step {
     position: static !important;
