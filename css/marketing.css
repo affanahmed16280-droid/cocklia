@@ -1216,6 +1216,7 @@ button {
 .devices-gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: clamp(20px, 3vw, 32px);
   max-width: 1000px;
   margin: 0 auto;
@@ -1248,6 +1249,13 @@ button {
   object-position: center;
   border-radius: calc(var(--r-lg) - 4px);
   transition: transform 0.45s var(--ease-expo);
+}
+
+/* Version 4 uses the supplied portrait photograph, so retain its full composition. */
+.device-card--v4 img {
+  height: auto;
+  aspect-ratio: 405 / 590;
+  object-fit: contain;
 }
 
 .device-card:hover img {
