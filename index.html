@@ -348,16 +348,16 @@
         <div class="will-reveal" style="text-align: center;">
           <span class="section-label">Engineering Progress</span>
           <h2 id="progress-heading">
-            Four years.<br>Three hardware iterations.
+            Five hardware iterations.<br>Two latest models.
           </h2>
         </div>
 
         <!-- Stat counters -->
         <div class="stats-row" role="list">
           <div class="stat-cell will-reveal" role="listitem">
-            <span class="stat-cell__num" data-count="3" id="stat-models" aria-label="3 working models">0</span>
+            <span class="stat-cell__num" data-count="2" id="stat-models" aria-label="2 latest working models">0</span>
             <span class="stat-cell__label">Working Models</span>
-            <span class="stat-cell__desc">Iterated from Cochlea Cap 1.0 through 3.0, each refining spatial resolution and haptic responsiveness</span>
+            <span class="stat-cell__desc">The latest Cochlea Cap 4.0 and 5.0 models, each refining spatial resolution and haptic responsiveness</span>
           </div>
           <div class="stat-cell will-reveal" role="listitem" style="--delay:0.08s">
             <span class="stat-cell__num" data-count="10" id="stat-awards" aria-label="10 awards won">0</span>
@@ -371,25 +371,19 @@
           </div>
         </div>
 
-        <!-- Hardware Prototypes Gallery -->
-        <div class="devices-gallery" role="list" aria-label="Cochlea Cap hardware iterations">
+        <!-- Latest hardware prototypes -->
+        <div class="devices-gallery" role="list" aria-label="Latest Cochlea Cap hardware iterations">
           <div class="device-card will-reveal" role="listitem">
-            <img src="assets/armband_device.png"
-                 alt="Cochlea Cap 1.0 prototype — the first directional haptic armband iteration"
-                 width="300" height="150" loading="lazy"/>
-            <span class="device-card__version">Cochlea Cap 1.0</span>
+            <img src="assets/cochlea-cap-v4.png"
+                 alt="Cochlea Cap 4.0 prototype and packaging on a dark wooden background"
+                 width="405" height="590" loading="lazy"/>
+            <span class="device-card__version">Cochlea Cap 4.0</span>
           </div>
           <div class="device-card will-reveal" role="listitem" style="--delay:0.08s">
-            <img src="assets/armband_device.png"
-                 alt="Cochlea Cap 2.0 prototype — refined vibration motor placement and improved enclosure"
-                 width="300" height="150" loading="lazy"/>
-            <span class="device-card__version">Cochlea Cap 2.0</span>
-          </div>
-          <div class="device-card will-reveal" role="listitem" style="--delay:0.16s">
-            <img src="assets/armband_device.png"
-                 alt="Cochlea Cap 3.0 prototype — current hardware iteration with optimized directional detection"
-                 width="300" height="150" loading="lazy"/>
-            <span class="device-card__version">Cochlea Cap 3.0</span>
+            <img src="assets/cochlea-cap-v5.jpg"
+                 alt="Cochlea Cap 5.0 prototype displayed beside a Cochlea Cap hat"
+                 width="1037" height="1024" loading="lazy"/>
+            <span class="device-card__version">Cochlea Cap 5.0</span>
           </div>
         </div>
 
@@ -703,7 +697,7 @@
         start: 'top 84%',
         once: true,
         onEnter() {
-          animateCount(statModels, 3, '', 1.2);
+          animateCount(statModels, 2, '', 1.2);
           animateCount(statAwards, 10, '', 1.6);
           animateCount(statPaper, 1, '', 1.0);
         }
